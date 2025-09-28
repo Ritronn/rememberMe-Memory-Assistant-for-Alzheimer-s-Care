@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Mic, MicOff, Home, Volume2, Heart } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Mic, MicOff, Home, Volume2, Heart, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface FamilyMember {
@@ -27,6 +28,7 @@ const PatientMode = () => {
   const [currentPhoto, setCurrentPhoto] = useState<string | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [familyMembers, setFamilyMembers] = useState<FamilyMember[]>([]);
+  const [textInput, setTextInput] = useState("");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -90,6 +92,35 @@ const PatientMode = () => {
     return `${member.name} is your ${member.relationship}. ${randomMemory.experience} You always feel so happy when you think about ${member.name}.`;
   };
 
+  const processQuery = (text: string) => {
+    setTranscript(text);
+    
+    // Process the request
+    const member = findFamilyMember(text);
+    if (member) {
+      const responseText = generateResponse(member);
+      setResponse(responseText);
+      setCurrentPhoto(member.photo || null);
+      speakText(responseText);
+    } else {
+      const fallbackResponse = "I'm here to help you remember your family. Try asking about your daughter, son, or other family members.";
+      setResponse(fallbackResponse);
+      setCurrentPhoto(null);
+      speakText(fallbackResponse);
+    }
+  };
+
+  const handleTextSubmit = () => {
+    if (!textInput.trim()) return;
+    
+    processQuery(textInput);
+    setTextInput("");
+  };
+
+  const handlePromptClick = (prompt: string) => {
+    processQuery(prompt);
+  };
+
   const handleVoiceInput = () => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       toast({
@@ -116,20 +147,7 @@ const PatientMode = () => {
 
     recognition.onresult = (event) => {
       const text = event.results[0][0].transcript;
-      setTranscript(text);
-      
-      // Process the request
-      const member = findFamilyMember(text);
-      if (member) {
-        const responseText = generateResponse(member);
-        setResponse(responseText);
-        setCurrentPhoto(member.photo || null);
-        speakText(responseText);
-      } else {
-        const fallbackResponse = "I'm here to help you remember your family. Try asking about your daughter, son, or other family members.";
-        setResponse(fallbackResponse);
-        speakText(fallbackResponse);
-      }
+      processQuery(text);
     };
 
     recognition.onerror = (event) => {
@@ -213,6 +231,39 @@ const PatientMode = () => {
                 </Button>
               )}
 
+              {/* Text Input Option */}
+              <div className="mt-8 space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex-1 h-px bg-border"></div>
+                  <p className="text-lg text-muted-foreground">or type your question</p>
+                  <div className="flex-1 h-px bg-border"></div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <Textarea
+                    value={textInput}
+                    onChange={(e) => setTextInput(e.target.value)}
+                    placeholder="Ask me about your family..."
+                    className="flex-1 text-lg resize-none"
+                    rows={2}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleTextSubmit();
+                      }
+                    }}
+                  />
+                  <Button
+                    onClick={handleTextSubmit}
+                    disabled={!textInput.trim() || isSpeaking}
+                    size="lg"
+                    className="px-8"
+                  >
+                    <Send className="w-5 h-5" />
+                  </Button>
+                </div>
+              </div>
+
               <div className="text-left space-y-4">
                 {transcript && (
                   <div className="p-4 bg-secondary rounded-lg">
@@ -236,12 +287,24 @@ const PatientMode = () => {
               <h3 className="text-xl-care font-semibold mb-4 text-card-foreground">
                 Try asking:
               </h3>
-              <ul className="space-y-2 text-lg text-muted-foreground">
-                <li>"Tell me about my daughter"</li>
-                <li>"Who is Sarah?"</li>
-                <li>"Tell me about my son"</li>
-                <li>"Who visits me?"</li>
-              </ul>
+              <div className="space-y-2">
+                {[
+                  "Tell me about my daughter",
+                  "Who is Sarah?",
+                  "Tell me about my son",
+                  "Who visits me?"
+                ].map((prompt, index) => (
+                  <Button
+                    key={index}
+                    onClick={() => handlePromptClick(prompt)}
+                    variant="secondary"
+                    className="w-full justify-start text-left h-auto py-3 px-4 text-lg"
+                    disabled={isSpeaking || isListening}
+                  >
+                    "{prompt}"
+                  </Button>
+                ))}
+              </div>
             </Card>
           </div>
 
