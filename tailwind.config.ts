@@ -58,6 +58,26 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      backgroundImage: {
+        'gradient-warm': 'var(--gradient-warm)',
+        'gradient-soft': 'var(--gradient-soft)',
+        'gradient-comfort': 'var(--gradient-comfort)',
+      },
+      boxShadow: {
+        'warm': 'var(--shadow-warm)',
+        'soft': 'var(--shadow-soft)',
+        'comfort': 'var(--shadow-comfort)',
+      },
+      transitionProperty: {
+        'gentle': 'var(--transition-gentle)',
+        'comfort': 'var(--transition-comfort)',
+      },
+      fontSize: {
+        'xl-care': ['1.5rem', { lineHeight: '2rem', letterSpacing: '0.025em' }],
+        '2xl-care': ['2rem', { lineHeight: '2.5rem', letterSpacing: '0.025em' }],
+        '3xl-care': ['2.5rem', { lineHeight: '3rem', letterSpacing: '0.025em' }],
+        '4xl-care': ['3rem', { lineHeight: '3.5rem', letterSpacing: '0.025em' }],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
