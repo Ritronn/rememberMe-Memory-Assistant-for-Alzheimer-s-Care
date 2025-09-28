@@ -1,73 +1,24 @@
-# Welcome to your Lovable project
+RememberMe - Memory Assistant for Alzheimer's Care
+A compassionate React web application designed to help people with Alzheimer's disease reconnect with their memories through familiar voices, photos, and personalized stories from loved ones.
+🧡 About RememberMe
+RememberMe is built specifically for Alzheimer's patients and their families. When someone is experiencing confusion or memory loss, this app provides gentle reminders about family members and cherished memories through an easy-to-use voice interface.
+How It Helps
 
-## Project info
+For Patients: Simple voice interactions to learn about family members and relive positive memories
+For Families: Easy way to preserve and share memories, stories, and photos that bring comfort
+For Caregivers: Tool to help reduce anxiety and confusion by providing consistent, loving responses
 
-**URL**: https://lovable.dev/projects/1112382a-8299-47b2-a59d-87f53e9789d6
+✨ Key Features
+Patient Interface
 
-## How can I edit this code?
+Large Voice Button: Extra-large button (150px) for easy interaction
+Gentle Responses: Warm, slow text-to-speech that reads personalized family stories
+Family Photos: Large, clear photos to help with recognition
+Simple Layout: Minimal confusion with one main action at a time
 
-There are several ways of editing your application.
+Family Setup
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/1112382a-8299-47b2-a59d-87f53e9789d6) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/1112382a-8299-47b2-a59d-87f53e9789d6) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Photo Upload: Upload family photos directly from device
+Memory Management: Click on any family member to add their specific memories
+Personalized Stories: Add detailed experiences and stories for each person
+Easy Organization: Simple cards layout for managing multiple family members
